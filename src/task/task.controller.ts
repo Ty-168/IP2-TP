@@ -14,11 +14,17 @@ import { TaskService } from './task.service';
 export class TasksController {
   constructor(private readonly taskService: TaskService) {}
 
+  
+  @Get()
+  getAllTasks() {
+    return this.taskService.findAll();
+  }
+
   @Get(':id')
   getTask(@Param('id') id: number) {
     return this.taskService.findOne(id);
   }
-  @Post('create')
+  @Post('/create')
   createTask(@Body() body: any) {
     return this.taskService.create(body);
   }
