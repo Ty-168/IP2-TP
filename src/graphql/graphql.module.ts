@@ -10,6 +10,7 @@ import { ProductCodeFirstResolver } from './resolvers/product.codefirst.resolver
 
 @Module({
   imports: [CategoryModule, ProductModule],
-  providers: [CategoryCodeFirstResolver, ProductCodeFirstResolver],
+  // providers: [CategoryCodeFirstResolver, ProductCodeFirstResolver],
+  providers: [CategoryResolver, ProductResolver],
 })
 export class GraphqlModule {}
