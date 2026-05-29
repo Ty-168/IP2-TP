@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import TodoCard from '@/components/TodoCard.vue'
 import { useTodoStore } from '@/stores/todo.store'
 
 const todoStore = useTodoStore()
+let stopRealtime: null | (() => void) = null
+
 const newTodo = ref('')
 
 const todos = computed(() => todoStore.todos)
@@ -43,7 +45,10 @@ const removeTodo = async (id: number) => {
 
 onMounted(async () => {
   await todoStore.fetchTodos()
+  stopRealtime = todoStore.startRealtime()
 })
+
+onBeforeUnmount(() => stopRealtime?.())
 </script>
 
 <template>
